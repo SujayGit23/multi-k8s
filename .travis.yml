@@ -3,20 +3,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t hitag/react-test -f ./client/Dockerfile.dev ./
+  - docker build -t SujayGit23/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run hitag/react-test npm test -- --coverage
+  - docker run SujayGit23/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t hitag/multi-client ./client
-  - docker build -t hitag/multi-nginx ./nginx
-  - docker build -t hitag/multi-server ./server
-  - docker build -t hitag/multi-worker ./worker
+  - docker build -t SujayGit23/multi-client ./client
+  - docker build -t SujayGit23/multi-nginx ./nginx
+  - docker build -t SujayGit23/multi-server ./server
+  - docker build -t SujayGit23/multi-worker ./worker
   #Log in to the docker cli
   - echo "$Data5678*" | docker login -u "sujay19" --password-stdin
   # Take those images and push them to docker pub
-  - docker push hitag/multi-client
-  - docker push hitag/multi-nginx
-  - docker push hitag/multi-server
-  - docker push hitag/multi-worker
+  - docker push SujayGit23/multi-client
+  - docker push SujayGit23/multi-nginx
+  - docker push SujayGit23/multi-server
+  - docker push SujayGit23/multi-worker
