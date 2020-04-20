@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t hitag/react-test -f ./client/Dockerfile.dev ./
+
+script:
+  - docker run hitag/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t hitag/multi-client ./client
+  - docker build -t hitag/multi-nginx ./nginx
+  - docker build -t hitag/multi-server ./server
+  - docker build -t hitag/multi-worker ./worker
+  #Log in to the docker cli
+  - echo "$Data5678*" | docker login -u "sujay19" --password-stdin
+  # Take those images and push them to docker pub
+  - docker push hitag/multi-client
+  - docker push hitag/multi-nginx
+  - docker push hitag/multi-server
+  - docker push hitag/multi-worker
